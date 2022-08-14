@@ -1,0 +1,23 @@
+import { createApp } from 'vue'
+import './style.css'
+import App from './App.vue'
+import router from './router'
+import { AOS } from './plugins/aos.js'
+
+const app = createApp(App)
+
+// 將 api 封裝 provide 到 Vue3 實例
+import api from './api/index'
+app.provide('$api', api)
+
+// 引入 Pinia 以及封裝後的 stores
+import { createPinia } from 'pinia'
+const pinia = createPinia()
+import stores from './store/index.js'
+app.provide('$stores', stores)
+
+app
+.use(pinia)
+.use(router)
+.use(AOS)
+.mount('#app')
