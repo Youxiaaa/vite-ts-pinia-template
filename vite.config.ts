@@ -4,6 +4,7 @@ import Pages from 'vite-plugin-pages'
 import Layouts from 'vite-plugin-vue-layouts'
 import Components from 'unplugin-vue-components/vite'
 import AutoImport from 'unplugin-auto-import/vite'
+import eslintPlugin from 'vite-plugin-eslint'
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -16,8 +17,15 @@ export default defineConfig({
     }),
     Components(),
     AutoImport({
+      eslintrc: {
+        enabled: false,
+        globalsPropValue: true
+      },
       imports: ['vue'],
-      dts: 'src/auto-imports.js'
+      dts: './auto-import.d.ts'
+    }),
+    eslintPlugin({
+      include: ['src/**/*.js', 'src/**/*.vue', 'src/*.js', 'src/*.vue']
     })
   ]
 })
